@@ -23,14 +23,14 @@ class Game {
 			throw new \RuntimeException('time over');
 		}
 
+		if(!$this->board->positionValid($x, $y)) {
+			throw new \RuntimeException('position invalid');
+		}
+
 		foreach($this->shots as $shot) {
 			if($shot->x === $x && $shot->y === $y) {
 				throw new \RuntimeException('cannot shoot same place twice');
 			}
-		}
-
-		if($this->board->hasShip($x, $y)) {
-			return true;
 		}
 
 		$shot = new \StdClass();
@@ -39,7 +39,6 @@ class Game {
 
 		$this->shots[] = $shot;
 
-        return false;
-    }
-
+		return $this->board->hasShip($x, $y);
+	}
 }

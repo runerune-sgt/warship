@@ -13,6 +13,7 @@ class GameSpec extends ObjectBehavior {
 	function let(Timer $timer, Board $board) {
 		$timer->isTimeOver()->willReturn(false);
 		$board->hasShip(Argument::any(), Argument::any())->willReturn(false);
+		$board->positionValid(Argument::any(), Argument::any())->willReturn(true);
 
 		$this->beConstructedWith($timer, $board);
 	}
@@ -47,11 +48,16 @@ class GameSpec extends ObjectBehavior {
 		$this->shouldThrow(new \RuntimeException('time over'))->during('shoot', [0, 0]);
 	}
 
+	function it_should_prevent_firing_on_invalid_position(Board $board) {
+		$board->positionValid(3, 1)->willReturn(false);
+
+		$this->shouldThrow(new \RuntimeException('position invalid'))->during('shoot', [3, 1]);
+	}
+
 	function it_should_win_the_game(Board $board) {
 		$board->hasShip(3, 1)->willReturn(true);
 
 		$this->shoot(0, 0)->shouldReturn(false);
-		$this->shoot(0, 1)->shouldReturn(false);
 		$this->shoot(1, 1)->shouldReturn(false);
 		$this->shoot(2, 1)->shouldReturn(false);
 		$this->shoot(3, 1)->shouldReturn(true);
