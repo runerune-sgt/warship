@@ -29,6 +29,10 @@ class Game {
 			}
 		}
 
+		if($this->board->hasShip($x, $y)) {
+			return true;
+		}
+
 		$shot = new \StdClass();
 		$shot->x = $x;
 		$shot->y = $y;
