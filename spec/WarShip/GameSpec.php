@@ -51,7 +51,10 @@ class GameSpec extends ObjectBehavior {
 	function it_should_prevent_firing_on_invalid_position(Board $board) {
 		$board->positionValid(3, 1)->willReturn(false);
 
-		$this->shouldThrow(new \RuntimeException('position invalid'))->during('shoot', [3, 1]);
+		$this->shoot(0, 0)->shouldReturn(false);
+		$this->shoot(3, 0)->shouldReturn(false);
+		$this->shouldThrow(new \RuntimeException('position invalid'))
+			->during('shoot', [3, 1]);
 	}
 
 	function it_should_win_the_game(Board $board) {
