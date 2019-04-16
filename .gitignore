@@ -1,0 +1,6 @@
+/.vscode/
+/vendor/
+/build
+.php_cs.cache
+.phpunit.result.cache
+/infection-log.diff

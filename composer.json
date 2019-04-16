@@ -1,0 +1,13 @@
+{
+    "name": "mikolaj/warship",
+    "type": "project",
+    "require-dev": {
+        "phpspec/phpspec": "^4.3"
+	},
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"": "src/"
+		}
+	}
+}
